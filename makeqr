@@ -50,6 +50,6 @@ if __name__ == "__main__":
 	QRimg.paste(logo, pos)
 
 	# save the QR code generated
-	QRimg.save(f"{args.logo}with_QR.png")
+	QRimg.save(f"{args.logo}_with_QR.png")
 
 	print('QR code generated!')
