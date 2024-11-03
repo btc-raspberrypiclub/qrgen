@@ -1,0 +1,8 @@
+services:
+  qrbuilder:
+    build: .
+    volumes:
+      - .:/app
+    command: bash
+    tty: true
+    stdin_open: true
