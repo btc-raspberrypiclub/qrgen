@@ -2,7 +2,7 @@
 
 # import modules
 import argparse
-from PIL import Image
+from PIL import Image, ImageColor
 import qrcode
 
 
@@ -12,19 +12,26 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description='Embed a logo in a QR code')
 
 	# arg for logo image
-	parser.add_argument("logo", default='logo.png', help='The logo image to embed in the QR code')
+	parser.add_argument("--logo", default='logo.png', help='The logo image to embed in the QR code')
 	# arg for URL or text
-	parser.add_argument("url", default='https://www.geeksforgeeks.org/', help='The URL or text to encode in the QR code')	
+	parser.add_argument("--url", default='https://www.geeksforgeeks.org/', help='The URL or text to encode in the QR code')	
 	# arg for color
-	parser.add_argument("color", default='Green', help='The color of the QR code')
+	parser.add_argument("--color", default='Green', help='The color of the QR code')
 	# arg for base width
-	parser.add_argument("basewidth", default=100, help='The base width of the logo image')	
+	parser.add_argument("--basewidth", default=100, help='The base width of the logo image')	
 	
 	# parse the arguments
 	args = parser.parse_args()
 
 	# load the logo image
 	logo = Image.open(args.logo)
+
+	# change logo image color
+	logo = logo.convert("RGB")
+	mask = logo.convert("L").point(lambda x: 255 if x < 250 else 0)
+	rgb_color = ImageColor.getcolor(args.color, "RGB")
+	color_layer = Image.new("RGB", logo.size, rgb_color)
+	logo = Image.composite(color_layer, logo, mask)
 
 	# adjust image size
 	wpercent = (int(args.basewidth)/float(logo.size[0]))
@@ -42,7 +49,7 @@ if __name__ == "__main__":
 
 	# adding color to QR code
 	QRimg = QRcode.make_image(
-		fill_color=args.color, back_color="white").convert('RGB')
+		fill_color=args.color, back_color='white').convert('RGB')
 
 	# set size of QR code
 	pos = ((QRimg.size[0] - logo.size[0]) // 2,
