@@ -8,6 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+bin/
 build/
 develop-eggs/
 dist/
@@ -15,7 +16,7 @@ downloads/
 eggs/
 .eggs/
 lib/
-lib64/
+lib64
 parts/
 sdist/
 var/
@@ -81,6 +82,7 @@ target/
 # IPython
 profile_default/
 ipython_config.py
+pyvenv.cfg
 
 # pyenv
 #   For a library or package, you might want to ignore these files since the code is
