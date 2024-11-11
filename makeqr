@@ -50,7 +50,7 @@ if __name__ == "__main__":
 		(QRimg.size[1] - basewidth) // 2)
 		QRimg.paste(resized_logo, pos)
 	
-	file_name = f"{logo_file}_with_QR_code.png" if logo else f"QR_code.png"
+	file_name = f"{logo_file}_with_QR_code.png" if args.logo else f"QR_code.png"
 	
 	# save the QR code generated
 	QRimg.save(file_name)
